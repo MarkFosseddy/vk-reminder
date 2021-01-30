@@ -11,7 +11,8 @@ let config = {
     contentBase: path.resolve(__dirname, "dist"),
     compress: true,
     hot: true,
-    host: "0.0.0.0"
+    host: "0.0.0.0",
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
