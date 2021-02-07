@@ -1,7 +1,9 @@
 declare const VK: any;
+const VK_API_VERSION: string = "5.126";
 
 type VKOpenAPI = {
-  Auth: VKAuth
+  Auth: VKAuth,
+  Api: VKApi
 };
 
 type VKAuth = {
@@ -9,6 +11,11 @@ type VKAuth = {
   logout: () => Promise<LogoutResponse>,
   getLoginStatus: () => Promise<LoginResponse>
 };
+
+type VKApi = {
+  call: (method: string, params: Object) => Promise<ApiCallResponse<any>>,
+  getUserInfo: (id: string) => Promise<ApiCallResponse<UserInfo>>
+}
 
 type User = {
   domain: string,
@@ -44,6 +51,24 @@ type LogoutResponse = {
   settings: undefined
 };
 
+type ApiCallResponse<T> = {
+  error?: {
+    error_code: number,
+    error_msg: string,
+    request_params: Array<{ key: string, value: string }>
+  },
+  response: T[]
+};
+
+type UserInfo = {
+  first_name: string,
+  id: string,
+  last_name: string,
+  can_access_closed: boolean,
+  is_closed: boolean,
+  photo_100: string
+};
+
 function login(): Promise<LoginResponse> {
   return new Promise(resolve => {
     VK.Auth.login((res: LoginResponse) => resolve(res));
@@ -68,6 +93,26 @@ const Auth: VKAuth = {
   getLoginStatus
 };
 
+function call(method: string, params: Object): Promise<ApiCallResponse<any>> {
+  return new Promise(resolve => {
+    VK.Api.call(
+      method,
+      { ...params, v: VK_API_VERSION },
+      (res: ApiCallResponse<any>) => resolve(res)
+    );
+  })
+}
+
+function getUserInfo(id: string): Promise<ApiCallResponse<UserInfo>> {
+  return call("users.get", { user_ids: id, fields: "photo_100" })
+}
+
+const Api: VKApi = {
+  call,
+  getUserInfo
+}
+
 export const VKLib: VKOpenAPI = {
-  Auth
+  Auth,
+  Api
 };
