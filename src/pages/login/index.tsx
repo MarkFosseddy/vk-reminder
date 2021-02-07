@@ -14,7 +14,7 @@ export default function Login({}: Props) {
 
   if (loading) {
     return(
-      <div>LOADING...</div>
+      <div>LOADING... Login.tsx</div>
     );
   }
 
@@ -30,9 +30,7 @@ export default function Login({}: Props) {
   return(
     <div>
       <h1>Login Page</h1>
-      <button onClick={async () => {
-        dispatch(loginAction(history));
-      }}>
+      <button onClick={() => dispatch(loginAction(history))}>
         VK Auth
       </button>
     </div>

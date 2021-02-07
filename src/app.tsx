@@ -10,7 +10,7 @@ export function App() {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useStoreDispatch();
-  const loading = useStoreSelector(state => state.user.loading);
+  const loading = useStoreSelector(state => state.user.initLoading);
 
   React.useEffect(() => {
     const redirectPath = location.pathname !== "/"
@@ -22,7 +22,7 @@ export function App() {
 
   if (loading) {
     return(
-      <div>LOADING...</div>
+      <div>LOADING... App.tsx</div>
     );
   }
 

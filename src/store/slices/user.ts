@@ -16,12 +16,15 @@ type User = {
 type SliceState = {
   user: User | null,
   loading: boolean,
+  initLoading: boolean,
   error: string | null
 };
 
 const initialState = {
   user: null,
   loading: false,
+  // @TODO: think about app initial loading
+  initLoading: false,
   error: null
 } as SliceState;
 
@@ -31,6 +34,10 @@ export const userSlice = createSlice({
   reducers: {
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
+    },
+    // @TODO: clean up
+    setInitLoading(state, action: PayloadAction<boolean>) {
+      state.initLoading = action.payload;
     },
     setError(state, action: PayloadAction<string | null>) {
       state.error = action.payload;
@@ -46,6 +53,9 @@ export const userSlice = createSlice({
     loginFail(state) {
       state.loading = false;
       state.error = "Something went wrong :("
+    },
+    resetState() {
+      return initialState;
     }
   }
 });
@@ -67,8 +77,8 @@ export const loginAction = (history: History): StoreThunk => async dispatch => {
   }
 
   const { id, last_name, first_name, photo_100 } = userInfoRes.response[0];
-  dispatch(loginSuccess({ id, last_name, first_name, photo_100 }));
   localStorage.setItem(StorageKeys.VK_ID, id);
+  dispatch(loginSuccess({ id, last_name, first_name, photo_100 }));
 
   history.replace("/dashboard");
 };
@@ -76,9 +86,11 @@ export const loginAction = (history: History): StoreThunk => async dispatch => {
 export const persistLoginAction =
   (history: History, redirectPath: string): StoreThunk =>
   async dispatch => {
-    const { loginSuccess, setLoading } = userSlice.actions;
+    console.log("REDIRECT PATH: ", redirectPath);
+    const { loginSuccess, setInitLoading } = userSlice.actions;
 
-    dispatch(setLoading(true));
+    // @TODO: clean up
+    dispatch(setInitLoading(true));
 
     // @TODO: delete this
     await new Promise(resolve => setTimeout(() => resolve(true), 500));
@@ -88,7 +100,8 @@ export const persistLoginAction =
     console.log("VK ID: ", userId);
 
     if (!loginStatusRes.session || !userId) {
-      dispatch(setLoading(false));
+      // @TODO: clean up
+      dispatch(setInitLoading(false));
       return;
     }
 
@@ -98,12 +111,29 @@ export const persistLoginAction =
 
     if (userInfoRes.error || !userInfoRes.response[0]) {
       localStorage.removeItem(StorageKeys.VK_ID);
-      setLoading(false);
+      // @TODO: clean up
+      setInitLoading(false);
       return;
     }
 
     const { id, last_name, first_name, photo_100 } = userInfoRes.response[0];
     dispatch(loginSuccess({ id, last_name, first_name, photo_100 }));
+    // @TODO: clean up
+    dispatch(setInitLoading(false));
 
     history.replace(redirectPath);
   };
+
+export const logoutAction = (history: History): StoreThunk => async dispatch => {
+  const { setLoading, resetState } = userSlice.actions;
+
+  dispatch(setLoading(true));
+
+  await VKLib.Auth.logout();
+  await new Promise(resolve => setTimeout(() => resolve(true), 500));
+
+  localStorage.removeItem(StorageKeys.VK_ID);
+  dispatch(resetState());
+
+  history.replace("/login");
+};
