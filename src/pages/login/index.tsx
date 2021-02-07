@@ -1,42 +1,37 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { VKLib } from "../../lib/vk";
-
-import { useStoreDispatch } from "../../store";
-import { userSlice } from "../../store/slices/user";
-
-import { Storage } from "../../types";
+import { useStoreDispatch, useStoreSelector } from "../../store";
+import { loginAction } from "../../store/slices/user";
 
 type Props = {};
 
 export default function Login({}: Props) {
   const history = useHistory();
   const dispatch = useStoreDispatch();
+  const loading = useStoreSelector(state => state.user.loading);
+  const error = useStoreSelector(state => state.user.error);
+
+  if (loading) {
+    return(
+      <div>LOADING...</div>
+    );
+  }
+
+  if (error) {
+    return(
+      <div>
+        <p>There was an error:</p>
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return(
     <div>
       <h1>Login Page</h1>
       <button onClick={async () => {
-        const res = await VKLib.Auth.login();
-        console.log("LOGIN: ", res);
-        if (res.session) {
-          const res2 = await VKLib.Api.getUserInfo(res.session.user.id);
-
-          if (res2.error) return;
-          if (!res2.response[0]) return;
-
-          const { id, first_name, last_name, photo_100 } = res2.response[0];
-          localStorage.setItem(Storage.VK_ID, id);
-          dispatch(userSlice.actions.setUser({
-            id,
-            first_name,
-            last_name,
-            photo_100
-          }));
-
-          history.push("/dashboard");
-        }
+        dispatch(loginAction(history));
       }}>
         VK Auth
       </button>
