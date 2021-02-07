@@ -1,12 +1,16 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { VKLib } from "../lib/vk";
+import { VKLib } from "../../lib/vk";
+import { useStoreSelector } from "../../store";
 
 type Props = {};
 
-export function Dashboard({}: Props) {
+export default function Dashboard({}: Props) {
   const history = useHistory();
+  const user = useStoreSelector(state => state.user);
+
+  console.log("CURR USER: ", user);
 
   return(
     <div>
