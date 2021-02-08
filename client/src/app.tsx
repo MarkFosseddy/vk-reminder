@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 import { useStoreDispatch, useStoreSelector } from "./store";
-import { persistLoginAction } from "./store/slices/user";
+import { autoLogin } from "./store/slices/user";
 
 import { AppRoutes } from "./routing/app-routes";
 
@@ -10,7 +10,7 @@ export function App() {
   const history = React.useRef(useHistory());
   const location = useLocation();
   const dispatch = useStoreDispatch();
-  const loading = useStoreSelector(state => state.user.initLoading);
+  const autoLoginLoading = useStoreSelector(state => state.user.autoLoginLoading);
 
   const redirectPath = React.useRef(
     location.pathname !== "/"
@@ -19,10 +19,10 @@ export function App() {
   );
 
   React.useEffect(() => {
-    dispatch(persistLoginAction(history.current, redirectPath.current));
+    dispatch(autoLogin(history.current, redirectPath.current));
   }, [dispatch]);
 
-  if (loading) {
+  if (autoLoginLoading) {
     return (
       <div>LOADING... App.tsx</div>
     );

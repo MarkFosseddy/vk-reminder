@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { useStoreDispatch, useStoreSelector } from "../../store";
-import { loginAction } from "../../store/slices/user";
+import { login } from "../../store/slices/user";
 
 export default function Login() {
   const history = useHistory();
@@ -28,7 +28,7 @@ export default function Login() {
   return (
     <div>
       <h1>Login Page</h1>
-      <button onClick={() => dispatch(loginAction(history))}>
+      <button onClick={() => dispatch(login(history))}>
         VK Auth
       </button>
     </div>
