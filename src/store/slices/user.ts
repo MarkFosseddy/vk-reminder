@@ -87,7 +87,6 @@ export const persistLoginAction = (
   history: History,
   redirectPath: string
 ): StoreThunk => async dispatch => {
-  console.log("REDIRECT PATH: ", redirectPath);
   const { loginSuccess, setInitLoading } = userSlice.actions;
 
   // @TODO: clean up
@@ -97,8 +96,6 @@ export const persistLoginAction = (
   await new Promise(resolve => setTimeout(() => resolve(true), 500));
   const loginStatusRes = await VKLib.Auth.getLoginStatus();
   const userId = localStorage.getItem(StorageKeys.VK_ID);
-  console.log("GET STATUS LOGIN: ", loginStatusRes);
-  console.log("VK ID: ", userId);
 
   if (!loginStatusRes.session || !userId) {
     // @TODO: clean up
