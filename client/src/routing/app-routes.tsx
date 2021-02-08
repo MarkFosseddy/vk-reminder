@@ -16,7 +16,7 @@ export function AppRoutes() {
     <React.Suspense fallback={<div></div>}>
       <Switch>
         <Route exact path={routes.home} component={Home} />
-        <Route exact path={routes.login} component={Login} />
+        <Route path={routes.login} component={Login} />
         <PrivateRoute path={routes.allowCommunityMessages} component={AllowCommunityMessages} />
         <PrivateRoute path={routes.dashboard} component={Dashboard} />
         <Route path="*" component={NotFound} />
