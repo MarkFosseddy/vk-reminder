@@ -7,26 +7,28 @@ import { persistLoginAction } from "./store/slices/user";
 import { AppRoutes } from "./routing/app-routes";
 
 export function App() {
-  const history = useHistory();
+  const history = React.useRef(useHistory());
   const location = useLocation();
   const dispatch = useStoreDispatch();
   const loading = useStoreSelector(state => state.user.initLoading);
 
-  React.useEffect(() => {
-    const redirectPath = location.pathname !== "/"
+  const redirectPath = React.useRef(
+    location.pathname !== "/"
       ? location.pathname
-      : "/dashboard";
+      : "/dashboard"
+  );
 
-    dispatch(persistLoginAction(history, redirectPath));
-  }, []);
+  React.useEffect(() => {
+    dispatch(persistLoginAction(history.current, redirectPath.current));
+  }, [dispatch]);
 
   if (loading) {
-    return(
+    return (
       <div>LOADING... App.tsx</div>
     );
   }
 
-  return(
+  return (
     <AppRoutes />
   );
 }

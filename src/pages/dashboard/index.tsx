@@ -4,16 +4,14 @@ import { Link, useHistory } from "react-router-dom";
 import { useStoreDispatch, useStoreSelector } from "../../store";
 import { logoutAction } from "../../store/slices/user";
 
-type Props = {};
-
-export default function Dashboard({}: Props) {
+export default function Dashboard() {
   const history = useHistory();
   const dispatch = useStoreDispatch();
   const user = useStoreSelector(state => state.user);
 
   console.log("CURR USER: ", user);
 
-  return(
+  return (
     <div>
       <h1>Dashboard Page</h1>
 
