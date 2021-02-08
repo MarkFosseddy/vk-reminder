@@ -8,6 +8,7 @@ const Home = React.lazy(() => import("../pages/home"));
 const Login = React.lazy(() => import("../pages/login"));
 const Dashboard = React.lazy(() => import("../pages/dashboard"));
 const AllowCommunityMessages = React.lazy(() => import("../pages/allow-community-messages"));
+const NotFound = React.lazy(() => import("../pages/not-found"));
 
 export function AppRoutes() {
   return (
@@ -15,14 +16,10 @@ export function AppRoutes() {
     <React.Suspense fallback={<div></div>}>
       <Switch>
         <Route exact path={routes.home} component={Home} />
-
         <Route exact path={routes.login} component={Login} />
         <PrivateRoute path={routes.allowCommunityMessages} component={AllowCommunityMessages} />
-
         <PrivateRoute path={routes.dashboard} component={Dashboard} />
-        <Route path="*">
-          <div>404 Not Found :(</div>
-        </Route>
+        <Route path="*" component={NotFound} />
       </Switch>
     </React.Suspense>
   );
