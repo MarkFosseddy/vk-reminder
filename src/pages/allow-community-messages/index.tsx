@@ -1,27 +1,26 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { VKLib } from "../../lib/vk";
+import { VKLib, VKEvents } from "../../lib/vk";
 
 import { useStoreSelector } from "../../store";
+
+const ALLOW_MSG_CONTAINER_ID = "allow-messages";
 
 export default function AllowCommunityMessages() {
   const user = useStoreSelector(state => state.user.user);
   const history = useHistory();
 
   React.useLayoutEffect(() => {
-    VKLib.Widgets.AllowMessagesFromCommunity("allow-messages", { height: 30 }, "202435034");
+    VKLib.Widgets.AllowMessagesFromCommunity(ALLOW_MSG_CONTAINER_ID);
   }, []);
 
   React.useEffect(() => {
-    VKLib.Observer.subscribe("widgets.allowMessagesFromCommunity.allowed", res => {
-      console.log("OBSERVER ALLOWED RES: ", res);
+    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_ALLOWED, () => {
       history.replace("/dashboard");
     });
 
-    return () => {
-      VKLib.Observer.unsubscribe("widgets.allowMessagesFromCommunity.allowed");
-    };
+    return () => VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_ALLOWED);
   });
 
   return (
@@ -33,7 +32,7 @@ export default function AllowCommunityMessages() {
         <p>{user?.first_name} {user?.last_name}</p>
       </div>
 
-      <div id="allow-messages"></div>
+      <div id={ALLOW_MSG_CONTAINER_ID}></div>
     </div>
   );
 }
