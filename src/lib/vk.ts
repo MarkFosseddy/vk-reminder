@@ -4,7 +4,9 @@ const VK_API_VERSION = "5.126";
 
 type VKOpenAPI = {
   Auth: VKAuth,
-  Api: VKApi
+  Api: VKApi,
+  Widgets: VKWidgets,
+  Observer: VKObserver
 };
 
 type VKAuth = {
@@ -18,6 +20,15 @@ type VKApi = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   call: (method: string, params: Record<string, unknown>) => Promise<ApiCallResponse<any>>,
   getUserInfo: (id: string) => Promise<ApiCallResponse<UserInfo>>
+}
+
+type VKWidgets = {
+  AllowMessagesFromCommunity: (elementId: string, options: { height: number }, groupId: string) => void
+}
+
+type VKObserver = {
+  subscribe: (event: string, cb: (res: unknown) => void) => void,
+  unsubscribe: (event: string, cb?: (res: unknown) => void) => void
 }
 
 type User = {
@@ -119,7 +130,34 @@ const Api: VKApi = {
   getUserInfo
 };
 
+function AllowMessagesFromCommunity(
+  elementId: string,
+  options: { height: number },
+  groupId: string
+): void {
+  VK.Widgets.AllowMessagesFromCommunity(elementId, options, groupId);
+}
+
+const Widgets: VKWidgets = {
+  AllowMessagesFromCommunity
+};
+
+function subscribe(event: string, cb: (res: unknown) => void): void {
+  VK.Observer.subscribe(event, cb);
+}
+
+function unsubscribe(event: string, cb?: (res: unknown) => void): void {
+  VK.Observer.unsubscribe(event, cb);
+}
+
+const Observer: VKObserver = {
+  subscribe,
+  unsubscribe
+}; 
+
 export const VKLib: VKOpenAPI = {
   Auth,
-  Api
+  Api,
+  Widgets,
+  Observer
 };
