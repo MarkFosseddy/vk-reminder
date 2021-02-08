@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { VKLib, VKEvents } from "../../lib/vk";
+import { routes } from "../../routing/routes";
 
 import { useStoreSelector } from "../../store";
 
@@ -17,7 +18,7 @@ export default function AllowCommunityMessages() {
 
   React.useEffect(() => {
     VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_ALLOWED, () => {
-      history.replace("/dashboard");
+      history.replace(routes.dashboard);
     });
 
     return () => VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_ALLOWED);

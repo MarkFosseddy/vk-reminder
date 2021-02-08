@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
+import { routes } from "./routing/routes";
+
 import { useStoreDispatch, useStoreSelector } from "./store";
 import { autoLogin } from "./store/slices/user";
 
@@ -13,9 +15,9 @@ export function App() {
   const autoLoginLoading = useStoreSelector(state => state.user.autoLoginLoading);
 
   const redirectPath = React.useRef(
-    location.pathname !== "/"
+    location.pathname !== routes.home
       ? location.pathname
-      : "/dashboard"
+      : routes.dashboard
   );
 
   React.useEffect(() => {

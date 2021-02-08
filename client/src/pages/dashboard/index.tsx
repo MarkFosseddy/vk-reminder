@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
+import { routes } from "../../routing/routes";
+
 import { useStoreDispatch } from "../../store";
 import { logout } from "../../store/slices/user";
 
@@ -16,7 +18,7 @@ export default function Dashboard() {
         Logout
       </button>
       <br />
-      <Link to="/">Go back to Home</Link>
+      <Link to={routes.home}>Go back to Home</Link>
     </div>
   );
 }

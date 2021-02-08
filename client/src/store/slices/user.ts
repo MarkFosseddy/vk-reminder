@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 import { History } from "history";
 
 import { StorageKeys } from "../../types";
 import { StoreThunk } from "../index";
-
+import { routes } from "../../routing/routes";
 import { VKLib } from "../../lib/vk";
-import axios from "axios";
 
 type User = {
   id: string,
@@ -73,9 +73,9 @@ export function login(history: History): StoreThunk {
     dispatch(setLoading(false));
 
     if (data.is_allowed) {
-      history.replace("/dashboard");
+      history.replace(routes.dashboard);
     } else {
-      history.replace("/allow-community-messages");
+      history.replace(routes.allowCommunityMessages);
     }
   };
 }
@@ -110,7 +110,7 @@ export function autoLogin(history: History, redirectPath: string): StoreThunk {
     if (data.is_allowed) {
       history.replace(redirectPath);
     } else {
-      history.replace("/allow-community-messages");
+      history.replace(routes.allowCommunityMessages);
     }
   };
 }
@@ -127,6 +127,6 @@ export function logout(history: History): StoreThunk {
     dispatch(setUser(null));
     dispatch(setLoading(false));
 
-    history.replace("/login");
+    history.replace(routes.login);
   };
 }

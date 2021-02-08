@@ -1,6 +1,8 @@
 import React from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
 
+import { routes } from "./routes";
+
 import { useStoreSelector } from "../store";
 
 export function PrivateRoute(props: RouteProps) {
@@ -8,7 +10,7 @@ export function PrivateRoute(props: RouteProps) {
 
   if (!user) {
     return (
-      <Redirect to="/login" />
+      <Redirect to={routes.login} />
     );
   }
 
