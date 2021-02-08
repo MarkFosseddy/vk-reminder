@@ -107,6 +107,7 @@ export function autoLogin(history: History, redirectPath: string): StoreThunk {
 
     dispatch(setAutoLoginLoading(false));
 
+    // @TODO: think about proper redirects
     if (data.is_allowed) {
       history.replace(redirectPath);
     } else {
