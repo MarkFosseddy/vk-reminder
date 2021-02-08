@@ -6,10 +6,8 @@ const Home = React.lazy(() => import("../pages/home"));
 const Login = React.lazy(() => import("../pages/login"));
 const Dashboard = React.lazy(() => import("../pages/dashboard"));
 
-type Props = {};
-
-export function AppRoutes({}: Props) {
-  return(
+export function AppRoutes() {
+  return (
     // for now fallback is just blank screen
     <React.Suspense fallback={<div></div>}>
       <Switch>

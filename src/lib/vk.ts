@@ -1,5 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const VK: any;
-const VK_API_VERSION: string = "5.126";
+const VK_API_VERSION = "5.126";
 
 type VKOpenAPI = {
   Auth: VKAuth,
@@ -13,7 +14,9 @@ type VKAuth = {
 };
 
 type VKApi = {
-  call: (method: string, params: Object) => Promise<ApiCallResponse<any>>,
+  // @TODO: fix typing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  call: (method: string, params: Record<string, unknown>) => Promise<ApiCallResponse<any>>,
   getUserInfo: (id: string) => Promise<ApiCallResponse<UserInfo>>
 }
 
@@ -93,24 +96,28 @@ const Auth: VKAuth = {
   getLoginStatus
 };
 
-function call(method: string, params: Object): Promise<ApiCallResponse<any>> {
+// @TODO: fix typing
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function call(method: string, params: Record<string, unknown>): Promise<ApiCallResponse<any>> {
   return new Promise(resolve => {
     VK.Api.call(
       method,
       { ...params, v: VK_API_VERSION },
+      // @TODO: fix typing
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (res: ApiCallResponse<any>) => resolve(res)
     );
-  })
+  });
 }
 
 function getUserInfo(id: string): Promise<ApiCallResponse<UserInfo>> {
-  return call("users.get", { user_ids: id, fields: "photo_100" })
+  return call("users.get", { user_ids: id, fields: "photo_100" });
 }
 
 const Api: VKApi = {
   call,
   getUserInfo
-}
+};
 
 export const VKLib: VKOpenAPI = {
   Auth,

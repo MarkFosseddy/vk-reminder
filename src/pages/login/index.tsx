@@ -4,22 +4,20 @@ import { useHistory } from "react-router-dom";
 import { useStoreDispatch, useStoreSelector } from "../../store";
 import { loginAction } from "../../store/slices/user";
 
-type Props = {};
-
-export default function Login({}: Props) {
+export default function Login() {
   const history = useHistory();
   const dispatch = useStoreDispatch();
   const loading = useStoreSelector(state => state.user.loading);
   const error = useStoreSelector(state => state.user.error);
 
   if (loading) {
-    return(
+    return (
       <div>LOADING... Login.tsx</div>
     );
   }
 
   if (error) {
-    return(
+    return (
       <div>
         <p>There was an error:</p>
         <p>{error}</p>
@@ -27,7 +25,7 @@ export default function Login({}: Props) {
     );
   }
 
-  return(
+  return (
     <div>
       <h1>Login Page</h1>
       <button onClick={() => dispatch(loginAction(history))}>

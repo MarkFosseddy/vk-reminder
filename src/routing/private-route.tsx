@@ -7,12 +7,12 @@ export function PrivateRoute(props: RouteProps) {
   const user = useStoreSelector(state => state.user.user);
 
   if (!user) {
-    return(
+    return (
       <Redirect to="/login" />
     );
   }
 
-  return(
+  return (
     <Route {...props} />
   );
 }
