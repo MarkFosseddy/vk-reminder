@@ -24,7 +24,7 @@ const initialState = {
   user: null,
   loading: false,
   // @TODO: think about app initial loading
-  initLoading: false,
+  initLoading: true,
   error: null
 } as SliceState;
 
@@ -80,7 +80,7 @@ export const loginAction = (history: History): StoreThunk => async dispatch => {
   localStorage.setItem(StorageKeys.VK_ID, id);
   dispatch(loginSuccess({ id, last_name, first_name, photo_100 }));
 
-  history.replace("/dashboard");
+  history.replace("/allow-community-messages");
 };
 
 export const persistLoginAction = (
@@ -123,7 +123,7 @@ export const persistLoginAction = (
 };
 
 export const logoutAction = (history: History): StoreThunk => async dispatch => {
-  const { setLoading, resetState } = userSlice.actions;
+  const { setLoading, resetState, setInitLoading } = userSlice.actions;
 
   dispatch(setLoading(true));
 
@@ -132,6 +132,8 @@ export const logoutAction = (history: History): StoreThunk => async dispatch => 
 
   localStorage.removeItem(StorageKeys.VK_ID);
   dispatch(resetState());
+  // @TODO: maybe init loading should be in another place
+  dispatch(setInitLoading(false));
 
   history.replace("/login");
 };
