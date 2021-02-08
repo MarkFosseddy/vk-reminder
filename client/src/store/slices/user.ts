@@ -125,6 +125,7 @@ export function logout(history: History): StoreThunk {
 
     localStorage.removeItem(StorageKeys.VK_ID);
     dispatch(setUser(null));
+
     dispatch(setLoading(false));
 
     history.replace(routes.login);

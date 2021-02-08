@@ -4,13 +4,15 @@ import { useHistory } from "react-router-dom";
 import { VKLib, VKEvents } from "../../lib/vk";
 import { routes } from "../../routing/routes";
 
-import { useStoreSelector } from "../../store";
+import { useStoreDispatch, useStoreSelector } from "../../store";
+import { logout } from "../../store/slices/user";
 
 const ALLOW_MSG_CONTAINER_ID = "allow-messages";
 
 export default function AllowCommunityMessages() {
-  const user = useStoreSelector(state => state.user.user);
   const history = useHistory();
+  const dispatch = useStoreDispatch();
+  const user = useStoreSelector(state => state.user.user);
 
   React.useLayoutEffect(() => {
     VKLib.Widgets.AllowMessagesFromCommunity(ALLOW_MSG_CONTAINER_ID);
@@ -34,6 +36,10 @@ export default function AllowCommunityMessages() {
       </div>
 
       <div id={ALLOW_MSG_CONTAINER_ID}></div>
+
+      <button onClick={() => dispatch(logout(history))}>
+        Cancel
+      </button>
     </div>
   );
 }
