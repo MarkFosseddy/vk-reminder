@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { History } from "history";
 
 import { StorageKeys } from "../../types";
 import { StoreThunk } from "../index";
-import { routes } from "../../routing/routes";
+import { routes, history } from "../../routing";
 import { VKLib } from "../../lib/vk";
 
 type User = {
@@ -47,7 +46,7 @@ export const userSlice = createSlice({
   }
 });
 
-export function login(history: History): StoreThunk {
+export function login(): StoreThunk {
   return async function(dispatch) {
     const { setLoading, setError, setUser } = userSlice.actions;
 
@@ -80,7 +79,7 @@ export function login(history: History): StoreThunk {
   };
 }
 
-export function autoLogin(history: History, redirectPath: string): StoreThunk {
+export function autoLogin(redirectPath: string): StoreThunk {
   return async function(dispatch) { 
     const { setAutoLoginLoading, setUser } = userSlice.actions;
 
@@ -116,7 +115,7 @@ export function autoLogin(history: History, redirectPath: string): StoreThunk {
   };
 }
 
-export function logout(history: History): StoreThunk {
+export function logout(): StoreThunk {
   return async function(dispatch) {
     const { setLoading, setUser } = userSlice.actions;
 

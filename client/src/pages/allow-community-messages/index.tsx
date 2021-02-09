@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { VKLib, VKEvents } from "../../lib/vk";
-import { routes } from "../../routing/routes";
+import { routes } from "../../routing";
 
 import { useStoreDispatch, useStoreSelector } from "../../store";
 import { logout } from "../../store/slices/user";
@@ -37,7 +37,7 @@ export default function AllowCommunityMessages() {
 
       <div id={ALLOW_MSG_CONTAINER_ID}></div>
 
-      <button onClick={() => dispatch(logout(history))}>
+      <button onClick={() => dispatch(logout())}>
         Cancel
       </button>
     </div>

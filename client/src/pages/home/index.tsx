@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { routes } from "../../routing/routes";
+import { routes } from "../../routing";
 
 export default function Home() {
   return (
