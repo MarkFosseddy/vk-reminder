@@ -1,15 +1,12 @@
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import { routes } from "./routing/routes";
+import { routes, AppRoutes } from "./routing";
 
 import { useStoreDispatch, useStoreSelector } from "./store";
 import { autoLogin } from "./store/slices/user";
 
-import { AppRoutes } from "./routing/app-routes";
-
 export function App() {
-  const history = React.useRef(useHistory());
   const location = useLocation();
   const dispatch = useStoreDispatch();
   const autoLoginLoading = useStoreSelector(state => state.user.autoLoginLoading);
@@ -21,7 +18,7 @@ export function App() {
   );
 
   React.useEffect(() => {
-    dispatch(autoLogin(history.current, redirectPath.current));
+    dispatch(autoLogin(redirectPath.current));
   }, [dispatch]);
 
   if (autoLoginLoading) {
