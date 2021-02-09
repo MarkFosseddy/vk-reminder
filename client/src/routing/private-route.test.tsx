@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { Router, Switch, Route } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { createMemoryHistory } from "history";
 import { createReducer, createStore } from "@reduxjs/toolkit";
 
 import { render, screen } from "@testing-library/react";
@@ -27,7 +27,7 @@ const userState = {
 };
 
 function renderRoutes(storeState: Record<string, unknown>, pushPath: string) {
-  const history = createBrowserHistory();
+  const history = createMemoryHistory();
   history.push(pushPath);
 
   return render(
