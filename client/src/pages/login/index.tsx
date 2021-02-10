@@ -1,14 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
-import { useStoreDispatch, useStoreSelector } from "../../store";
-import { login } from "../../store/slices/user";
+import { useLogin } from "../../hooks/user";
 
 export default function Login() {
-  const dispatch = useStoreDispatch();
-  const history = useHistory();
-  const loading = useStoreSelector(state => state.user.loading);
-  const error = useStoreSelector(state => state.user.error);
+  const { loading, error, login } = useLogin();
 
   if (loading) {
     return (
@@ -28,7 +23,8 @@ export default function Login() {
   return (
     <div>
       <h1>Login Page</h1>
-      <button onClick={() => dispatch(login(history))}>
+
+      <button onClick={login}>
         VK Auth
       </button>
     </div>

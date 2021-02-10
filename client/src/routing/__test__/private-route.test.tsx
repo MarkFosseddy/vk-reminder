@@ -24,13 +24,9 @@ describe("PrivateRoute Component", () => {
 });
 
 const withUserState = {
-  user: {
-    user: { id: "test-id" }
-  }
+  user: { id: "test-id" }
 };
-const noUserState = {
-  user: { user: null }
-};
+const noUserState = { user: null };
 
 function renderRoutes(state: Record<string, unknown>) {
   const history = createMemoryHistory();
