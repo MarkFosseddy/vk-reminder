@@ -14,17 +14,8 @@ export default function AllowCommunityMessages() {
   const dispatch = useStoreDispatch();
   const user = useStoreSelector(state => state.user.user);
 
-  React.useLayoutEffect(() => {
-    VKLib.Widgets.AllowMessagesFromCommunity(ALLOW_MSG_CONTAINER_ID);
-  }, []);
-
-  React.useEffect(() => {
-    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_ALLOWED, () => {
-      history.replace(routes.dashboard);
-    });
-
-    return () => VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_ALLOWED);
-  });
+  useVKCommunityMessagesWidget(ALLOW_MSG_CONTAINER_ID);
+  useAllowVKCommunityMessagesSubscription();
 
   return (
     <div>
@@ -42,4 +33,24 @@ export default function AllowCommunityMessages() {
       </button>
     </div>
   );
+}
+
+function useVKCommunityMessagesWidget(elementId: string) {
+  const id = React.useRef(elementId);
+
+  React.useLayoutEffect(() => {
+    VKLib.Widgets.AllowMessagesFromCommunity(id.current);
+  }, []);
+}
+
+function useAllowVKCommunityMessagesSubscription() {
+  const history = useHistory();
+
+  React.useEffect(() => {
+    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_ALLOWED, () => {
+      history.replace(routes.dashboard);
+    });
+
+    return () => VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_ALLOWED);
+  });
 }
