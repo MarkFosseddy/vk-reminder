@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { routes } from "../../routing";
 
@@ -8,12 +8,13 @@ import { logout } from "../../store/slices/user";
 
 export default function Dashboard() {
   const dispatch = useStoreDispatch();
+  const history = useHistory();
 
   return (
     <div>
       <h1>Dashboard Page</h1>
 
-      <button onClick={() => dispatch(logout())}>
+      <button onClick={() => dispatch(logout(history))}>
         Logout
       </button>
       <br />

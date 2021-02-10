@@ -37,7 +37,7 @@ export default function AllowCommunityMessages() {
 
       <div id={ALLOW_MSG_CONTAINER_ID}></div>
 
-      <button onClick={() => dispatch(logout())}>
+      <button onClick={() => dispatch(logout(history))}>
         Cancel
       </button>
     </div>
