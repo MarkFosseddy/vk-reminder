@@ -5,7 +5,7 @@ import { routes } from "../../routing";
 import { useStoreSelector } from "../../store";
 
 export default function NotFound() {
-  const user = useStoreSelector(state => state.user.user);
+  const user = useStoreSelector(state => state.user);
 
   return (
     <div>

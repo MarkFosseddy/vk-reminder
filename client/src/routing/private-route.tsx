@@ -6,7 +6,7 @@ import { routes } from "./routes";
 import { useStoreSelector } from "../store";
 
 export function PrivateRoute(props: RouteProps) {
-  const user = useStoreSelector(state => state.user.user);
+  const user = useStoreSelector(state => state.user);
 
   if (!user) {
     return (
