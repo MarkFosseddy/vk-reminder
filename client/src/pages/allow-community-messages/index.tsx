@@ -8,13 +8,13 @@ import { useStoreSelector } from "../../store";
 
 import { useLogout } from "../../hooks/user";
 
-const ALLOW_MSG_CONTAINER_ID = "allow-messages";
+const ALLOW_VK_COMMUNITY_MSG_CONTAINER_ID = "allow-vk-community-messages";
 
 export default function AllowCommunityMessages() {
   const user = useStoreSelector(state => state.user);
   const { logout } = useLogout();
 
-  useVKCommunityMessagesWidget(ALLOW_MSG_CONTAINER_ID);
+  useVKCommunityMessagesWidget(ALLOW_VK_COMMUNITY_MSG_CONTAINER_ID);
   useAllowVKCommunityMessagesSubscription();
 
   return (
@@ -26,7 +26,7 @@ export default function AllowCommunityMessages() {
         <p>{user?.first_name} {user?.last_name}</p>
       </div>
 
-      <div id={ALLOW_MSG_CONTAINER_ID}></div>
+      <div id={ALLOW_VK_COMMUNITY_MSG_CONTAINER_ID}></div>
 
       <button onClick={logout}>
         Cancel
