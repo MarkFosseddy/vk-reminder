@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "./src/index.tsx",
   "scripts": {
-    "start": "snowpack dev --reload",
+    "start": "snowpack dev",
     "build": "webpack --mode production",
     "lint": "eslint --ext .tsx,.ts src/",
     "test": "jest"
