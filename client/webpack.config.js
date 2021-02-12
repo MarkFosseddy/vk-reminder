@@ -1,19 +1,11 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-let config = {
+module.exports = {
   entry: path.resolve(__dirname, "src", "index.tsx"),
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    publicPath: "/"
-  },
-  devServer: {
-    contentBase: path.resolve(__dirname, "dist"),
-    compress: true,
-    hot: true,
-    host: "0.0.0.0",
-    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -37,13 +29,3 @@ let config = {
     ]
   }
 };
-
-module.exports = function(_, argv) {
-  if (argv.mode === "development") {
-    config.devtool = "eval";
-  }
-
-  if (argv.mode === "production") {}
-
-  return config;
-}

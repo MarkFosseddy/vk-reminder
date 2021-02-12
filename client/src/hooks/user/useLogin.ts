@@ -1,10 +1,10 @@
 import React from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import { StorageKeys } from "../../types";
 
 import { VKLib } from "../../lib/vk";
+import { API } from "../../api";
 import { routes } from "../../routing";
 
 import { useStoreDispatch } from "../../store";
@@ -31,10 +31,15 @@ export function useLogin() {
     }
 
     const { id, last_name, first_name, photo_100 } = userInfoRes.response[0];
-    localStorage.setItem(StorageKeys.VK_ID, id);
-    const { data } = await axios.post("http://192.168.0.78:3000", { id });
+    const { data } = await API.user.isVKCommunityMessagesAllowed(id);
+    if (data.error) {
+      setError("Something went wrong :(");
+      setLoading(false);
+      return;
+    }
 
     dispatch(userSlice.actions.setUser({ id, last_name, first_name, photo_100 }));
+    localStorage.setItem(StorageKeys.VK_ID, id);
 
     setLoading(false);
 

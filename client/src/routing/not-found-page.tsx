@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { routes } from "../../routing";
+import { routes } from "./routes";
 
-import { useStoreSelector } from "../../store";
+import { useStoreSelector } from "../store";
 
-export default function NotFound() {
+export function NotFoundPage() {
   const user = useStoreSelector(state => state.user);
 
   return (

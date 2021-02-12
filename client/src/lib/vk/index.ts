@@ -11,5 +11,6 @@ export const VKLib = {
 };
 
 export enum VKEvents {
-  COMMUNITY_MSG_ALLOWED = "widgets.allowMessagesFromCommunity.allowed"
+  COMMUNITY_MSG_ALLOWED = "widgets.allowMessagesFromCommunity.allowed",
+  COMMUNITY_MSG_DENIED = "widgets.allowMessagesFromCommunity.denied"
 }

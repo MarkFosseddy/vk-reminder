@@ -8,25 +8,23 @@ import { useStoreSelector } from "../../store";
 
 import { useLogout } from "../../hooks/user";
 
-const ALLOW_VK_COMMUNITY_MSG_CONTAINER_ID = "allow-vk-community-messages";
-
 export default function AllowCommunityMessages() {
   const user = useStoreSelector(state => state.user);
+  const history = useHistory();
   const { logout } = useLogout();
-
-  useVKCommunityMessagesWidget(ALLOW_VK_COMMUNITY_MSG_CONTAINER_ID);
-  useAllowVKCommunityMessagesSubscription();
 
   return (
     <div>
       <h1>Allow Messages</h1>
 
       <div>
-        <img src={user?.photo_100} alt="user avatar"/>
+        <img src={user?.photo_100} alt="user avatar" />
         <p>{user?.first_name} {user?.last_name}</p>
       </div>
 
-      <div id={ALLOW_VK_COMMUNITY_MSG_CONTAINER_ID}></div>
+      <VKAllowMessagesFromCommunityWidget
+        onAllow={() => history.replace(routes.dashboard)}
+      />
 
       <button onClick={logout}>
         Cancel
@@ -35,22 +33,32 @@ export default function AllowCommunityMessages() {
   );
 }
 
-function useVKCommunityMessagesWidget(elementId: string) {
-  const id = React.useRef(elementId);
-
-  React.useLayoutEffect(() => {
-    VKLib.Widgets.AllowMessagesFromCommunity(id.current);
-  }, []);
+type Props = {
+  onAllow?: (...args: unknown[]) => void,
+  onDeny?: (...args: unknown[]) => void
 }
 
-function useAllowVKCommunityMessagesSubscription() {
-  const history = useHistory();
+function VKAllowMessagesFromCommunityWidget({
+  onAllow = () => {},
+  onDeny = () => {}
+}: Props) {
+  const CONTAINER_ID = "vk-allow-messages-from-community-container-id";
+
+  React.useLayoutEffect(() => {
+    VKLib.Widgets.AllowMessagesFromCommunity(CONTAINER_ID);
+  }, []);
 
   React.useEffect(() => {
-    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_ALLOWED, () => {
-      history.replace(routes.dashboard);
-    });
+    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_ALLOWED, onAllow);
+    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_DENIED, onDeny);
 
-    return () => VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_ALLOWED);
+    return () => {
+      VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_ALLOWED, onAllow);
+      VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_DENIED, onDeny);
+    };
   });
+
+  return (
+    <div id={CONTAINER_ID}></div>
+  );
 }
