@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 
 import { routes } from "../../routing";
 
-import { useLogout } from "../../hooks/user";
+// import { useLogout } from "../../hooks/user";
 
 export default function Dashboard() {
-  const { logout } = useLogout();
+  // const { logout } = useLogout();
 
   return (
     <div>
       <h1>Dashboard Page</h1>
 
-      <button onClick={logout}>
+      {/* <button onClick={logout}>
         Logout
-      </button>
+      </button> */}
 
       <br />
 

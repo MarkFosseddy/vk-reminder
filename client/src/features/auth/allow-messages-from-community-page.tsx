@@ -5,11 +5,12 @@ import { VKLib, VKEvents } from "../../lib/vk";
 import { routes } from "../../routing";
 
 import { useStoreSelector } from "../../store";
+import { userSelector } from "./auth-slice";
 
-import { useLogout } from "../../hooks/user";
+import { useLogout } from "./auth-hooks";
 
-export default function AllowCommunityMessages() {
-  const user = useStoreSelector(state => state.user);
+export function AllowMessagesFromCommunityPage() {
+  const user = useStoreSelector(userSelector);
   const history = useHistory();
   const { logout } = useLogout();
 

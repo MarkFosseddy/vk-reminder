@@ -1,6 +1,6 @@
 export const routes = {
   home: "/",
   login: "/login",
-  allowCommunityMessages: "/allow-community-messages",
+  allowMessagesFromCommunity: "/allow-messages-from-community",
   dashboard: "/dashboard"
 };
