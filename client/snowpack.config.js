@@ -14,8 +14,7 @@ module.exports = {
   routes: [
     { match: "routes", "src": ".*", "dest": "/index.html" }
   ],
-  packageOptions: {
-  },
+  packageOptions: {},
   devOptions: {
     open: "none"
   },

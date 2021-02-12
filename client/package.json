@@ -4,7 +4,7 @@
   "main": "./src/index.tsx",
   "scripts": {
     "start": "snowpack dev --reload",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "lint": "eslint --ext .tsx,.ts src/",
     "test": "jest"
   },
