@@ -7,7 +7,7 @@ import { routes } from "../../routing";
 import { useStoreSelector } from "../../store";
 import { userSelector } from "./auth-slice";
 
-import { useLogout } from "./auth-hooks";
+import { useLogout } from "./use-logout";
 
 export function AllowMessagesFromCommunityPage() {
   const user = useStoreSelector(userSelector);

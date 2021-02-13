@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useLogin } from "./auth-hooks";
+import { useLogin } from "./use-login";
 
 export function LoginPage() {
   const { loading, error, login } = useLogin();
