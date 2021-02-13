@@ -5,8 +5,8 @@ import * as Observer from "./observer";
 import { VKEvents } from "./index";
 
 type Props = {
-  onAllow: (...args: unknown[]) => void,
-  onDeny?: (...args: unknown[]) => void
+  onAllow: Observer.ObserverCallback
+  onDeny?: Observer.ObserverCallback
 }
 
 export function VKAllowMessagesFromCommunityWidget({

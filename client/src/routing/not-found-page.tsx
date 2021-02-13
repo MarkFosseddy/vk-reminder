@@ -11,7 +11,7 @@ export function NotFoundPage() {
   return (
     <div>
       <h1>404 Not Found :(</h1>
-      <Link to={user ? routes.dashboard : routes.home}>
+      <Link to={user ? routes.reminders : routes.home}>
         {user ? "Go to Dashboard" : "Go to Home"}
       </Link>
     </div>

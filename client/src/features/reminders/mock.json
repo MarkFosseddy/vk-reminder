@@ -1,0 +1,14 @@
+{
+  "data": [
+    { "id": "1", "text": "Buy milk", "date": "2020-5-8 10:35", "isSent": false },
+    { "id": "2", "text": "Wash dishes", "date": "2020-5-8 10:35", "isSent": false },
+    { "id": "3", "text": "Visit parents", "date": "2020-5-8 10:35", "isSent": true },
+    { "id": "4", "text": "Find a job", "date": "2020-5-8 10:35", "isSent": false },
+    { "id": "5", "text": "Change battaries in watches", "date": "2020-5-8 10:35", "isSent": true },
+    { "id": "6", "text": "Clean my room", "date": "2020-5-8 10:35", "isSent": false },
+    { "id": "7", "text": "Read a book", "date": "2020-5-8 10:35", "isSent": false },
+    { "id": "8", "text": "Go to sleep", "date": "2020-5-8 10:35", "isSent": false },
+    { "id": "9", "text": "Change my bad sheets", "date": "2020-5-8 10:35", "isSent": true },
+    { "id": "10", "text": "Guitar practice", "date": "2020-5-8 10:35", "isSent": false }
+  ]
+}

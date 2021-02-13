@@ -22,6 +22,7 @@ export function useLogout() {
     localStorage.removeItem(StorageKeys.VK_ID);
     setLoading(false);
 
+    // @TODO: clear reminders
     dispatch(authActions.setUser(null));
 
     history.replace(routes.login);

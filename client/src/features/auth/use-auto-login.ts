@@ -41,7 +41,7 @@ export function useAutoLogin() {
       if (is_allowed) {
         const redirectPath = locationRef.current.pathname !== routes.home
           ? locationRef.current.pathname
-          : routes.dashboard;
+          : routes.reminders;
 
         historyRef.current.replace(redirectPath);
       } else {
