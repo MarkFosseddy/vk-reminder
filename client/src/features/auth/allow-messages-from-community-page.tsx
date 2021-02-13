@@ -24,7 +24,7 @@ export function AllowMessagesFromCommunityPage() {
       </div>
 
       <VKAllowMessagesFromCommunityWidget
-        onAllow={() => history.replace(routes.dashboard)}
+        onAllow={() => history.replace(routes.reminders)}
       />
 
       <button onClick={logout}>

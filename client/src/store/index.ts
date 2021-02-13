@@ -2,11 +2,13 @@ import { Action, combineReducers, configureStore, ThunkAction } from "@reduxjs/t
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { authReducer } from "../features/auth";
+import { remindersReducer } from "../features/reminders";
 
 type StoreDispatch = typeof store.dispatch;
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  reminders: remindersReducer
 });
 
 export const store = configureStore({

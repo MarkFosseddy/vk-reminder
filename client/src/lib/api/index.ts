@@ -1,3 +1,8 @@
 import * as user from "./user";
+import * as reminders from "./reminders";
 
-export const API = { user };
+// @TODO: typing
+export const API = {
+  user,
+  reminders
+};

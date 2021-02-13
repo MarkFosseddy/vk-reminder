@@ -38,7 +38,7 @@ export function useLogin() {
     setLoading(false);
 
     if (is_allowed) {
-      history.replace(routes.dashboard);
+      history.replace(routes.reminders);
     } else {
       history.replace(routes.allowMessagesFromCommunity);
     }
