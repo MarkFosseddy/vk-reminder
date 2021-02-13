@@ -2,7 +2,7 @@ import React from "react";
 
 import { AppRoutes } from "./routing";
 
-import { useAutoLogin } from "./hooks/user";
+import { useAutoLogin } from "./features/auth";
 
 export function App() {
   const { loading } = useAutoLogin();

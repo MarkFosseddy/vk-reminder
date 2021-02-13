@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { routes } from "./routes";
 
 import { useStoreSelector } from "../store";
+import { userSelector } from "../features/auth";
 
 export function NotFoundPage() {
-  const user = useStoreSelector(state => state.user);
+  const user = useStoreSelector(userSelector);
 
   return (
     <div>

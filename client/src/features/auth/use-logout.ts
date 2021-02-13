@@ -7,8 +7,7 @@ import { VKLib } from "../../lib/vk";
 import { routes } from "../../routing";
 
 import { useStoreDispatch } from "../../store";
-import { userSlice } from "../../store/slices/user";
-
+import { authActions } from "./auth-slice";
 
 export function useLogout() {
   const dispatch = useStoreDispatch();
@@ -23,7 +22,7 @@ export function useLogout() {
     localStorage.removeItem(StorageKeys.VK_ID);
     setLoading(false);
 
-    dispatch(userSlice.actions.setUser(null));
+    dispatch(authActions.setUser(null));
 
     history.replace(routes.login);
   }

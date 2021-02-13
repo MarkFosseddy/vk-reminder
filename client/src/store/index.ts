@@ -1,13 +1,12 @@
 import { Action, combineReducers, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import { userSlice } from "./slices/user";
+import { authReducer } from "../features/auth";
 
-type StoreState = ReturnType<typeof rootReducer>;
 type StoreDispatch = typeof store.dispatch;
 
 const rootReducer = combineReducers({
-  user: userSlice.reducer
+  auth: authReducer
 });
 
 export const store = configureStore({
@@ -21,3 +20,4 @@ export function useStoreDispatch() {
 }
 
 export type StoreThunk = ThunkAction<void, StoreState, unknown, Action<string>>;
+export type StoreState = ReturnType<typeof rootReducer>;

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { useLogin } from "../../hooks/user";
+import { useLogin } from "./use-login";
 
-export default function Login() {
+export function LoginPage() {
   const { loading, error, login } = useLogin();
 
   if (loading) {

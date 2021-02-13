@@ -14,7 +14,7 @@ type ApiCallResponse<T> = {
   response: T[]
 };
 
-type UserInfo = {
+export type UserInfo = {
   first_name: string,
   id: string,
   last_name: string,
