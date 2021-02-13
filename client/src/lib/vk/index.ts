@@ -3,6 +3,8 @@ import * as Api from "./api";
 import * as Observer from "./observer";
 import * as Widgets from "./widgets";
 
+export * from "./widgets-react";
+
 export const VKLib = {
   Auth,
   Api,

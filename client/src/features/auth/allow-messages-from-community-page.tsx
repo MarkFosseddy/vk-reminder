@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { VKLib, VKEvents } from "../../lib/vk";
+import { VKAllowMessagesFromCommunityWidget } from "../../lib/vk";
 import { routes } from "../../routing";
 
 import { useStoreSelector } from "../../store";
@@ -31,35 +31,5 @@ export function AllowMessagesFromCommunityPage() {
         Cancel
       </button>
     </div>
-  );
-}
-
-type Props = {
-  onAllow?: (...args: unknown[]) => void,
-  onDeny?: (...args: unknown[]) => void
-}
-
-function VKAllowMessagesFromCommunityWidget({
-  onAllow = () => {},
-  onDeny = () => {}
-}: Props) {
-  const CONTAINER_ID = "vk-allow-messages-from-community-container-id";
-
-  React.useLayoutEffect(() => {
-    VKLib.Widgets.AllowMessagesFromCommunity(CONTAINER_ID);
-  }, []);
-
-  React.useEffect(() => {
-    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_ALLOWED, onAllow);
-    VKLib.Observer.subscribe(VKEvents.COMMUNITY_MSG_DENIED, onDeny);
-
-    return () => {
-      VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_ALLOWED, onAllow);
-      VKLib.Observer.unsubscribe(VKEvents.COMMUNITY_MSG_DENIED, onDeny);
-    };
-  });
-
-  return (
-    <div id={CONTAINER_ID}></div>
   );
 }
