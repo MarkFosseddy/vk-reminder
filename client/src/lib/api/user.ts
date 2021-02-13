@@ -13,7 +13,7 @@ type R = {
 export async function isVKCommunityMessagesAllowed(userId: string): Promise<R> {
   try {
     const res = await axios.post("http://192.168.0.78:3000", { id: userId });
-    return res.data;
+    return { data: res.data };
   } catch (err) {
     return { error: err };
   }
