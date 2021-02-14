@@ -25,3 +25,14 @@ export async function getAll() {
     return { error: err.message } as ResultError;
   }
 }
+
+// @TODO: typing
+export async function deleteReminder(id: string) {
+  try {
+    const res = await fakeRequest(id);
+    return { data: res } as ResultSuccess<any>;
+  } catch (error) {
+    const err: Error = error;
+    return { error: err.message } as ResultError;
+  }
+}

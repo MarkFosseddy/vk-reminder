@@ -2,15 +2,18 @@ import React from "react";
 
 import { API } from "../../lib/api";
 
-import { useStoreDispatch } from "../../store";
-import { remindersActions } from "./reminders-slice";
+import { useStoreDispatch, useStoreSelector } from "../../store";
+import { remindersActions, selectReminders } from "./reminders-slice";
 
 export function useGetReminders() {
   const dispatch = useStoreDispatch();
+  const reminders = useStoreSelector(selectReminders);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
+    if (reminders != null) return;
+
     (async () => {
       setLoading(true);
       setError(null);
@@ -25,7 +28,7 @@ export function useGetReminders() {
       dispatch(remindersActions.setReminders(res.data));
       setLoading(false);
     })();
-  }, [dispatch]);
+  }, [dispatch, reminders]);
 
-  return { loading, error };
+  return { loading, error, reminders };
 }

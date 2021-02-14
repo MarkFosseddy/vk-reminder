@@ -1,15 +1,19 @@
 import React from "react";
-import { useStoreSelector } from "../../store";
+import { Link } from "react-router-dom";
+
+import { routes } from "../../routing";
+
+import { Reminder } from "./reminders-slice";
+
 import { useLogout } from "../auth";
-import { Reminder, selectReminders } from "./reminders-slice";
 import { useGetReminders } from "./use-get-reminders";
+import { useDeleteReminder } from "./use-delete-reminder";
 
 export function RemindersPage() {
-  const { loading, error } = useGetReminders();
+  const { error, reminders } = useGetReminders();
   const { logout } = useLogout();
-  const reminders = useStoreSelector(selectReminders);
 
-  if (loading) {
+  if (reminders == null) {
     return (
       <div>LOADING... reminders-page.tsx</div>
     );
@@ -32,6 +36,8 @@ export function RemindersPage() {
         Logout
       </button>
 
+      <Link to={routes.createReminder}>Create Reminder</Link>
+
       {reminders.length > 0
         ? <ReminderList reminders={reminders} />
         : <div>You have no reminders</div>
@@ -49,13 +55,20 @@ function ReminderList({ reminders }: { reminders: Reminder[] }) {
 }
 
 function ReminderItem({ reminder }: { reminder: Reminder }) {
+  const { loading, error, deleteReminder } = useDeleteReminder();
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <li style={{marginTop: 10}}>
       <h4 style={{ textDecoration: reminder.isSent ? "line-through" : "none" }}>
         {reminder.text}
       </h4>
       <p>{reminder.date}</p>
-      <button>delete</button>
+      <button onClick={() => deleteReminder(reminder.id)}>
+        delete
+      </button>
       <button>update</button>
     </li>
   );

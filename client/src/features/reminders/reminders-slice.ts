@@ -10,11 +10,11 @@ export type Reminder = {
 }
 
 type SliceState = {
-  entities: Reminder[]
+  entities: Reminder[] | null
 }
 
 const initialState = {
-  entities: []
+  entities: null
 } as SliceState;
 
 const remindersSlice = createSlice({
@@ -23,6 +23,10 @@ const remindersSlice = createSlice({
   reducers: {
     setReminders(state, action: PayloadAction<Reminder[]>) {
       state.entities = action.payload;
+    },
+    deleteReminder(state, action: PayloadAction<string>) {
+      if (state.entities == null) return;
+      state.entities = state.entities.filter(e => e.id !== action.payload);
     }
   }
 });
@@ -30,6 +34,6 @@ const remindersSlice = createSlice({
 export const remindersReducer = remindersSlice.reducer;
 export const remindersActions = remindersSlice.actions;
 
-export function selectReminders(state: StoreState): Reminder[] {
+export function selectReminders(state: StoreState): Reminder[] | null {
   return state.reminders.entities;
 }
