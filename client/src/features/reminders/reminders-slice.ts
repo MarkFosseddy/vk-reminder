@@ -14,6 +14,7 @@ type SliceState = {
 }
 
 const initialState = {
+  // @TODO: probably should be an empty array
   entities: null
 } as SliceState;
 
@@ -27,6 +28,10 @@ const remindersSlice = createSlice({
     deleteReminder(state, action: PayloadAction<string>) {
       if (state.entities == null) return;
       state.entities = state.entities.filter(e => e.id !== action.payload);
+    },
+    add(state, action: PayloadAction<Reminder>) {
+      if (state.entities == null) return;
+      state.entities.push(action.payload);
     }
   }
 });
