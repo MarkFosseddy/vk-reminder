@@ -13,18 +13,18 @@ export function RemindersPage() {
   const { error, reminders } = useGetReminders();
   const { logout } = useLogout();
 
-  if (reminders == null) {
-    return (
-      <div>LOADING... reminders-page.tsx</div>
-    );
-  }
-
   if (error) {
     return (
       <div>
         <p>There was an error: </p>
         <p>{error}</p>
       </div>
+    );
+  }
+
+  if (reminders == null) {
+    return (
+      <div>LOADING... reminders-page.tsx</div>
     );
   }
 
@@ -69,7 +69,7 @@ function ReminderItem({ reminder }: { reminder: Reminder }) {
       <button onClick={() => deleteReminder(reminder.id)}>
         delete
       </button>
-      <button>update</button>
+      <Link to={routes.updateReminder + reminder.id}>update</Link>
     </li>
   );
 }

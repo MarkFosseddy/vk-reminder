@@ -35,7 +35,7 @@ describe("useCreateReminder Hook", () => {
 
     await act(() => result.current.createReminder(newReminderMock));
 
-    expect(store.getState().reminders.entities).toContain(createdData.data)
+    expect(store.getState().reminders.entities![0]).toBe(createdData.data)
   });
 
   it("should set loading during request", async () => {
@@ -62,16 +62,17 @@ describe("useCreateReminder Hook", () => {
 
     expect(result.current.error).not.toBe(null);
     expect(result.current.loading).toBe(false);
-    expect(store.getState().reminders.entities).toHaveLength(0);
+    expect(store.getState().reminders.entities).toStrictEqual(initialState);
   });
 });
 
 const newReminderMock = { text: "test-text", date: "test-date" };
+const initialState = [{id: "1", text: "t", date: "d", isSent: false }];
 
 function setup() {
   const store = configureStore({ reducer: combineReducers({ reminders: remindersReducer }) });
 
-  store.dispatch(remindersActions.setReminders([]));
+  store.dispatch(remindersActions.setReminders(initialState));
 
   const utils = renderHook(() => useCreateReminder(), {
     wrapper: ({ children }) => (

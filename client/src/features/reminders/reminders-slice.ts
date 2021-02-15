@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 
 import { StoreState } from "../../store";
 
@@ -31,7 +31,15 @@ const remindersSlice = createSlice({
     },
     add(state, action: PayloadAction<Reminder>) {
       if (state.entities == null) return;
-      state.entities.push(action.payload);
+      state.entities.unshift(action.payload);
+    },
+    // @TODO: typing
+    update(state, action: PayloadAction<{ id: string, text: string, date: string }>) {
+      if (state.entities == null) return;
+      const reminder = state.entities.find(e => e.id === action.payload.id);
+      if (!reminder) return;
+      reminder.text = action.payload.text;
+      reminder.date = action.payload.date;
     }
   }
 });
@@ -41,4 +49,16 @@ export const remindersActions = remindersSlice.actions;
 
 export function selectReminders(state: StoreState): Reminder[] | null {
   return state.reminders.entities;
+}
+
+export function selectReminderById(id: string) {
+  return createSelector(
+    selectReminders,
+    (reminders) => {
+      if (!reminders) return null;
+      const r = reminders.find(r => r.id === id);
+      if (!r) return null;
+      return r;
+    }
+  );
 }

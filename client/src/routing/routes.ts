@@ -3,5 +3,6 @@ export const routes = {
   login: "/login",
   allowMessagesFromCommunity: "/allow-messages-from-community",
   reminders: "/reminders",
-  createReminder: "/reminders/create"
+  createReminder: "/reminders/create",
+  updateReminder: "/reminders/update/"
 };

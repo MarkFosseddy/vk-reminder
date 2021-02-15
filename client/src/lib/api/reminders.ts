@@ -47,3 +47,14 @@ export async function create({ text, date }: { text: string, date: string }) {
     return { error: err.message } as ResultError;
   }
 }
+
+// @TODO: typing
+export async function update({ id, text, date }: { id: string, text: string, date: string }) {
+  try {
+    const res = await fakeRequest({ id, text, date, isSent: false });
+    return { data: res } as ResultSuccess<Reminder>;
+  } catch (error) {
+    const err: Error = error;
+    return { error: err.message } as ResultError;
+  }
+}

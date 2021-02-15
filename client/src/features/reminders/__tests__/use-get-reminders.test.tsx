@@ -42,7 +42,7 @@ describe("useGetReminder Hook", () => {
     (API.reminders.getAll as jest.Mock).mockResolvedValue({ data: newData });
 
     // @ts-ignore
-    const { waitForNextUpdate, store } = setup(data);
+    const { store } = setup(data);
 
     expect(API.reminders.getAll).toHaveBeenCalledTimes(0);
     expect(store.getState().reminders.entities).not.toBe(newData);
