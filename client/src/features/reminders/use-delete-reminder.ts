@@ -1,13 +1,15 @@
+import React from "react";
+
 import { API } from "../../lib/api";
+
 import { useStoreDispatch } from "../../store";
-import { useError, useLoading } from "../shared";
 import { remindersActions } from "./reminders-slice";
 
 export function useDeleteReminder() {
   const dispatch = useStoreDispatch();
 
-  const { loading, setLoading } = useLoading();
-  const { error, setError } = useError();
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   async function deleteReminder(id: string) {
     setLoading(true);

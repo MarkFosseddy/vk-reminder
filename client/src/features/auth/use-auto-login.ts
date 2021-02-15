@@ -9,13 +9,12 @@ import { routes } from "../../routing";
 
 import { useStoreDispatch } from "../../store";
 import { authActions } from "./auth-slice";
-import { useLoading } from "../shared";
 
 export function useAutoLogin() {
   const dispatch = useStoreDispatch();
   const historyRef = React.useRef(useHistory());
   const locationRef = React.useRef(useLocation());
-  const { loading, setLoading } = useLoading();
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     (async () => {

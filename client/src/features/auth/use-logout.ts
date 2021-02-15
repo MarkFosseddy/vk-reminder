@@ -1,3 +1,4 @@
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { StorageKeys } from "../../types";
@@ -7,12 +8,11 @@ import { routes } from "../../routing";
 
 import { useStoreDispatch } from "../../store";
 import { authActions } from "./auth-slice";
-import { useLoading } from "../shared";
 
 export function useLogout() {
   const dispatch = useStoreDispatch();
   const history = useHistory();
-  const { loading, setLoading } = useLoading();
+  const [loading, setLoading] = React.useState(false);
 
   async function logout() {
     setLoading(true);

@@ -14,7 +14,7 @@ jest.mock("../../../lib/api");
 describe("useGetReminder Hook", () => {
   afterEach(jest.clearAllMocks);
 
-  it("should fetch reminders", async () => {
+  it("should make api request", async () => {
     (API.reminders.getAll as jest.Mock).mockResolvedValueOnce({ data: [] });
 
     const { waitForNextUpdate } = setup();
@@ -55,6 +55,7 @@ describe("useGetReminder Hook", () => {
     await waitForNextUpdate();
 
     expect(result.current.error).not.toBe(null);
+    expect(result.current.loading).toBe(false);
     expect(store.getState().reminders.entities).toBe(null);
   });
 });

@@ -31,7 +31,7 @@ describe("useUpdateReminder Hook", () => {
     const { result, store } = setup();
 
     await act(() => result.current.updateReminder(data));
-    const reminder = store.getState().reminders.entities?.find(e => e.id == data.id);
+    const reminder =  store.getState().reminders.entities?.find(e => e.id == data.id);
 
     expect(reminder?.text).toBe(data.text);
     expect(reminder?.date).toBe(data.date);

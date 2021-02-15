@@ -32,7 +32,6 @@ describe("useCreateReminder Hook", () => {
     (API.reminders.create as jest.Mock).mockReturnValue(createdData);
 
     const { store, result } = setup();
-
     await act(() => result.current.createReminder(newReminderMock));
 
     expect(store.getState().reminders.entities![0]).toBe(createdData.data)
@@ -42,7 +41,6 @@ describe("useCreateReminder Hook", () => {
     (API.reminders.create as jest.Mock).mockReturnValue({ data: {} });
 
     const { result, waitFor } = setup();
-
     expect(result.current.loading).toBe(false);
 
     act(() => {
@@ -57,7 +55,6 @@ describe("useCreateReminder Hook", () => {
     (API.reminders.create as jest.Mock).mockReturnValue({ error: true });
 
     const { store, result } = setup();
-
     await act(() => result.current.createReminder(newReminderMock));
 
     expect(result.current.error).not.toBe(null);
