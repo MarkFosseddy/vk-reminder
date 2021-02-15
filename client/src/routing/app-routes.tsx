@@ -6,9 +6,13 @@ import { routes } from "./routes";
 import { PrivateRoute } from "./private-route";
 
 const HomePage = React.lazy(() => import("../features/home").then(m => ({ default: m.HomePage })));
+
 const LoginPage = React.lazy(() => import("../features/auth").then(m => ({ default: m.LoginPage })));
 const AllowMessagesFromCommunityPage = React.lazy(() => import("../features/auth").then(m => ({ default: m.AllowMessagesFromCommunityPage })));
+
 const RemindersPage = React.lazy(() => import("../features/reminders").then(m => ({ default: m.RemindersPage })));
+const NewReminderPage = React.lazy(() => import("../features/reminders").then(m => ({ default: m.NewReminderPage })));
+
 const NotFoundPage = React.lazy(() => import("./not-found-page").then(m => ({ default: m.NotFoundPage })));
 
 export function AppRoutes() {
@@ -21,7 +25,9 @@ export function AppRoutes() {
         <Route path={routes.login} component={LoginPage} />
         <PrivateRoute path={routes.allowMessagesFromCommunity} component={AllowMessagesFromCommunityPage} />
 
-        <PrivateRoute path={routes.reminders} component={RemindersPage} />
+        <PrivateRoute exact path={routes.reminders} component={RemindersPage} />
+        <PrivateRoute path={routes.createReminder} component={NewReminderPage} />
+        <PrivateRoute path={routes.updateReminder + ":id"} component={NewReminderPage} />
 
         <Route path="*" component={NotFoundPage} />
       </Switch>

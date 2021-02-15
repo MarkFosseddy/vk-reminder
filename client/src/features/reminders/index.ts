@@ -1,2 +1,3 @@
 export * from "./reminders-page";
-export { remindersReducer, selectReminders } from "./reminders-slice";
+export * from "./new-reminder-page";
+export { remindersReducer, selectReminders, selectReminderById } from "./reminders-slice";

@@ -1,4 +1,3 @@
-import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { StorageKeys } from "../../types";
@@ -9,12 +8,13 @@ import { routes } from "../../routing";
 
 import { useStoreDispatch } from "../../store";
 import { authActions } from "./auth-slice";
+import { useLoading, useError } from "../shared";
 
 export function useLogin() {
   const dispatch = useStoreDispatch();
   const history = useHistory();
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
+  const { loading, setLoading } = useLoading();
+  const { error, setError } = useError();
 
   async function login() {
     const loginRes = await VKLib.Auth.login();

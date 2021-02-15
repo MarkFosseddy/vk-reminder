@@ -25,3 +25,36 @@ export async function getAll() {
     return { error: err.message } as ResultError;
   }
 }
+
+// @TODO: typing
+export async function deleteReminder(id: string) {
+  try {
+    const res = await fakeRequest(id);
+    return { data: res } as ResultSuccess<any>;
+  } catch (error) {
+    const err: Error = error;
+    return { error: err.message } as ResultError;
+  }
+}
+
+// @TODO: typing
+export async function create({ text, date }: { text: string, date: string }) {
+  try {
+    const res = await fakeRequest({ id: String(Date.now()), text, date, isSent: false });
+    return { data: res } as ResultSuccess<Reminder>;
+  } catch (error) {
+    const err: Error = error;
+    return { error: err.message } as ResultError;
+  }
+}
+
+// @TODO: typing
+export async function update({ id, text, date }: { id: string, text: string, date: string }) {
+  try {
+    const res = await fakeRequest({ id, text, date, isSent: false });
+    return { data: res } as ResultSuccess<Reminder>;
+  } catch (error) {
+    const err: Error = error;
+    return { error: err.message } as ResultError;
+  }
+}
