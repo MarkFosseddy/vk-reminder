@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { StoreState } from "../../store";
 
@@ -51,14 +51,12 @@ export function selectReminders(state: StoreState): Reminder[] | null {
   return state.reminders.entities;
 }
 
-export function selectReminderById(id: string) {
-  return createSelector(
-    selectReminders,
-    (reminders) => {
-      if (!reminders) return null;
-      const r = reminders.find(r => r.id === id);
-      if (!r) return null;
-      return r;
-    }
-  );
+export function selectReminderById(state: StoreState, id: string) {
+  const reminders = selectReminders(state);
+  if (!reminders) return null;
+
+  const r = reminders.find(r => r.id === id);
+  if (!r) return null;
+
+  return r;
 }

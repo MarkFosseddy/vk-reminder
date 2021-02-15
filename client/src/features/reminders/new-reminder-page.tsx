@@ -15,10 +15,10 @@ export function NewReminderPage() {
 
   const isEdit = match.path.includes("update");
 
-  const reminder = useStoreSelector(selectReminderById(params.id));
+  const reminder = useStoreSelector(state => selectReminderById(state, params.id));
 
   const [text, setText] = React.useState(reminder?.text ?? "");
-  const [date, setDate] = React.useState(reminder?.date || "");
+  const [date, setDate] = React.useState(reminder?.date ?? "");
 
   const { createReminder } = useCreateReminder();
   const { updateReminder } = useUpdateReminder();
@@ -38,7 +38,7 @@ export function NewReminderPage() {
         if (isEdit) {
           await updateReminder({ id: params.id, text, date });
         } else {
-          await createReminder({ text, date });  
+          await createReminder({ text, date });
         }
         history.replace(routes.reminders);
       }}>

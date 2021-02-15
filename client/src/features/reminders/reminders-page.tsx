@@ -58,10 +58,14 @@ function ReminderItem({ reminder }: { reminder: Reminder }) {
   const { loading, error, deleteReminder } = useDeleteReminder();
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <li style={{marginTop: 10}}>
+      {error &&
+        <div style={{ color: "red" }}>
+          Error: {error}
+        </div>
+      }
       <h4 style={{ textDecoration: reminder.isSent ? "line-through" : "none" }}>
         {reminder.text}
       </h4>
